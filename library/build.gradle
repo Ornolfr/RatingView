@@ -1,4 +1,27 @@
 apply plugin: 'com.android.library'
+ext {
+    bintrayRepo = 'maven'
+    bintrayName = 'rating-view'
+
+    publishedGroupId = 'com.github.ornolfr'
+    libraryName = 'RatingView'
+    artifact = 'rating-view'
+
+    libraryDescription = 'Simple android widget that can replace standard inconvenient RatingBar in your app.'
+
+    siteUrl = 'https://github.com/Ornolfr/RatingView'
+    gitUrl = 'https://github.com/Ornolfr/RatingView.git'
+
+    libraryVersion = '0.1.0'
+
+    developerId = 'ornolfr'
+    developerName = 'Roman Samoylenko'
+    developerEmail = 'ornolfr1@gmail.com'
+
+    licenseName = 'The Apache Software License, Version 2.0'
+    licenseUrl = 'http://www.apache.org/licenses/LICENSE-2.0.txt'
+    allLicenses = ["Apache-2.0"]
+}
 
 android {
     compileSdkVersion 23
@@ -22,3 +45,6 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     compile 'com.android.support:appcompat-v7:23.4.0'
 }
+
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/installv1.gradle'
+apply from: 'https://raw.githubusercontent.com/nuuneoi/JCenter/master/bintrayv1.gradle'
