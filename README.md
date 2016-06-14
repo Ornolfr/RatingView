@@ -1,5 +1,6 @@
 # RatingView
 Simple android widget that can replace standard inconvenient RatingBar in your app.
+![]({{site.baseurl}}/https://lh5.googleusercontent.com/21Ct-RgdrYVhzsBf_mV9JP6F_zmaPlFi6U2yxosa9Vi4DCsufBTTLUuuj6C7JYvoo_MAHw=w1896-h859)
 ##Description
 The default Android `RatingBar` widget hardly can satisfy developers' needs. It's a pain to customize it at all. This simple view can take a huge advantage of setting and scaling drawables for rating view easily.
 ##Usage
