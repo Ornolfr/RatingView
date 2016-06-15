@@ -8,12 +8,6 @@ You can download this library with the following line in your `app` module `buil
 ```gradle
 compile 'com.github.ornolfr:rating-view:0.1.0@aar'
 ```    
-And this line in your project's `build.gradle` :
-```gradle
-maven { 
-	url 'https://dl.bintray.com/ornolfr/maven/' 
-}
-```
 ##Example
 Declare `RatingView` in your XML with `app` attributes:
 ```xml
