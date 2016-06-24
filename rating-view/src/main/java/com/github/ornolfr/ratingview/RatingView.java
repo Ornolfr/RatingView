@@ -30,13 +30,6 @@ public class RatingView extends View implements View.OnTouchListener {
 
     private static final int DEFAULT_DRAWABLE_MARGIN_IN_DP = 4;
 
-    /**
-     * This interface will return rating value before changing it and after
-     */
-    public interface OnRatingChangedListener {
-        void onRatingChange(float oldRating, float newRating);
-    }
-
     private OnRatingChangedListener mListener;
 
     //Bitmaps for your rating drawables
@@ -59,6 +52,14 @@ public class RatingView extends View implements View.OnTouchListener {
 
     //Integer field: inner margin between drawables
     private int mDrawableMargin;
+
+    /**
+     * This interface will return rating value before changing it and after
+     */
+    public interface OnRatingChangedListener {
+        void onRatingChange(float oldRating, float newRating);
+    }
+
 
     public RatingView(Context context) {
         super(context);
@@ -131,7 +132,8 @@ public class RatingView extends View implements View.OnTouchListener {
             //set view size
             mRect.set(0, 0, mDrawableSize, mDrawableSize);
 
-            int fullDrawablesCount = (int) mRating, emptyDrawablesCount = mMaxCount - Math.round(mRating);
+            int fullDrawablesCount = (int) mRating;
+            int emptyDrawablesCount = mMaxCount - Math.round(mRating);
 
             if (mRating - fullDrawablesCount >= 0.75f)
                 fullDrawablesCount++;
@@ -165,7 +167,8 @@ public class RatingView extends View implements View.OnTouchListener {
             case MotionEvent.ACTION_UP:
                 setRating(Math.round(event.getX() / getWidth() * mMaxCount + 0.5));
                 return false;
-
+            default: //do nothing
+                break;
         }
         return super.onTouchEvent(event);
     }
@@ -195,14 +198,15 @@ public class RatingView extends View implements View.OnTouchListener {
      * @param rating custom rating
      */
     public void setRating(float rating) {
-        if (rating < 0) {
-            rating = 0;
-        } else if (rating > mMaxCount) {
-            rating = mMaxCount;
+        float newRating = rating;
+        if (newRating < 0) {
+            newRating = 0;
+        } else if (newRating > mMaxCount) {
+            newRating = mMaxCount;
         }
         if (mListener != null)
-            mListener.onRatingChange(mRating, rating);
-        mRating = rating;
+            mListener.onRatingChange(mRating, newRating);
+        mRating = newRating;
         invalidate();
     }
 

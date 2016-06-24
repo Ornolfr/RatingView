@@ -12,7 +12,7 @@ ext {
     siteUrl = 'https://github.com/Ornolfr/RatingView'
     gitUrl = 'https://github.com/Ornolfr/RatingView.git'
 
-    libraryVersion = '0.1.0'
+    libraryVersion = '0.1.1'
 
     developerId = 'ornolfr'
     developerName = 'Roman Samoylenko'
