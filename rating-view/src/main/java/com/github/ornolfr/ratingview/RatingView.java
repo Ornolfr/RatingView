@@ -8,6 +8,8 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Rect;
 import android.os.Build;
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.MotionEvent;
@@ -115,8 +117,6 @@ public class RatingView extends View implements View.OnTouchListener {
 
         a.recycle();
 
-        if (!mIsIndicator)
-            setOnTouchListener(this);
     }
 
     @Override
@@ -127,6 +127,8 @@ public class RatingView extends View implements View.OnTouchListener {
 
     @Override
     protected void onDraw(Canvas canvas) {
+        if (!mIsIndicator)
+            setOnTouchListener(this);
 //        canvas.translate(getPaddingLeft(), getPaddingTop());
         if (mDrawableFilled != null && mDrawableHalf != null && mDrawableEmpty != null) {
             //set view size
@@ -273,6 +275,60 @@ public class RatingView extends View implements View.OnTouchListener {
      */
     public int getDrawableMargin() {
         return mDrawableMargin;
+    }
+
+    @Override
+    protected Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState savedState = new SavedState(superState);
+        savedState.mRating = mRating;
+        savedState.mIndicator = mIsIndicator;
+        return savedState;
+    }
+
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        if (state instanceof SavedState) {
+            SavedState savedState = (SavedState) state;
+            super.onRestoreInstanceState(savedState.getSuperState());
+            mRating = savedState.mRating;
+            mIsIndicator = savedState.mIndicator;
+        } else {
+            super.onRestoreInstanceState(state);
+        }
+    }
+
+    static class SavedState extends BaseSavedState {
+
+        float mRating;
+        boolean mIndicator;
+
+        SavedState(Parcelable superState) {
+            super(superState);
+        }
+
+        private SavedState(Parcel in) {
+            super(in);
+            this.mRating = in.readFloat();
+            this.mIndicator = in.readInt() == 0;
+        }
+
+        @Override
+        public void writeToParcel(Parcel out, int flags) {
+            super.writeToParcel(out, flags);
+            out.writeFloat(this.mRating);
+            out.writeInt(this.mIndicator ? 1 : 0);
+        }
+
+        public static final Parcelable.Creator<SavedState> CREATOR = new Parcelable.Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
     }
 
 }
