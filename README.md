@@ -9,7 +9,7 @@ The default Android `RatingBar` widget hardly can satisfy developers' needs. It'
 ##Usage
 You can download this library with the following line in your `app` module `build.gradle`:
 ```gradle
-compile 'com.github.ornolfr:rating-view:0.1.1@aar'
+compile 'com.github.ornolfr:rating-view:0.1.2@aar'
 ```    
 ##Example
 Declare `RatingView` in your XML with `app` attributes:
